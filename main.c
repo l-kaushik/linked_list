@@ -91,8 +91,19 @@ Node * insertAtLast(Node *n, int value){
     return n;
 }
 
-int deleteAtFirst(){
-    //
+Node * deleteAtFirst(Node *n){
+    Node *head = NULL;
+
+    if(NULL == n){
+        fprintf(stderr,"Can't remove element from an non-existing list");
+        exit(EXIT_FAILURE);
+    }
+    else{
+        head = n->next;
+        free(n);
+
+        return head;
+    }
 }
 
 int deleteAtIndex(){
@@ -113,10 +124,8 @@ void printList(Node *n){
 int main()
 {
     Node *n = NULL;
-    n = insertAtFirst(n, 4);
-    n = insertAtLast(n,100);
-    n = insertAtIndex(n, 2, 999);
-    n = insertAtIndex(n, 3, 888);
+    // n = insertAtFirst(n, 4);
+    n = deleteAtFirst(n);
     printList(n);
     return 0;
 }
