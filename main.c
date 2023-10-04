@@ -33,8 +33,25 @@ void insertAtIndex(){
     //
 }
 
-void insertAtLast(){
-    // 
+Node * insertAtLast(Node *n, int value){
+    Node *tail = (Node *)malloc(sizeof(Node));
+    check_null(tail);
+    tail->data = value;
+
+    if(NULL == n){
+        n = tail;
+        n->next = NULL;
+    }
+    else{
+        // Node *traverse = n;
+        while(n->next != NULL){
+            n = n->next;
+        }
+        n->next = tail;
+        tail->next = NULL;
+    }
+
+    return n;
 }
 
 int deleteAtFirst(){
@@ -53,7 +70,7 @@ int main()
 {
     Node *n = NULL;
     n = insertAtFirst(n, 4);
-    n = insertAtFirst(n, 9);
+    n = insertAtLast(n,100);
     printf("%d\t%d",n->data, n->next->data);
     return 0;
 }
