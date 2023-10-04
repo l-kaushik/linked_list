@@ -3,7 +3,6 @@
 
 typedef struct Node{
     int data;
-    int size;
     struct Node *next;
 } Node;
 
@@ -14,18 +13,16 @@ void check_null(void *ptr){
     }
 }
 
-Node * createNode(){
-    Node *n = (Node *)malloc(sizeof(Node));
-    check_null(n);
-    n->data = 0;
-    n->size = -1;   // -1 means node is empty
-    n->next = NULL;
-
-    return n;
-}
-
 void insertAtFirst(Node * n, int value){
-    
+    Node *head = (Node *)malloc(sizeof(Node));
+    check_null(n);
+    if(NULL == n){
+        n->data = value;
+    }
+    else{
+        head->next = n;
+        n = head;
+    }
 }
 
 void insertAtIndex(){
@@ -50,7 +47,8 @@ int deleteAtLast(){
 
 int main()
 {
-    Node *n = createNode();
+    Node *n;
+    insertAtFirst(n, 4);
     printf("%d",n->data);
     return 0;
 }
