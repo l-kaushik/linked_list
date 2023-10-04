@@ -41,16 +41,16 @@ Node * insertAtLast(Node *n, int value){
     if(NULL == n){
         n = tail;
         n->next = NULL;
+
     }
     else{
-        // Node *traverse = n;
-        while(n->next != NULL){
-            n = n->next;
+        Node *traverse = n;
+        while(traverse->next != NULL){
+            traverse = traverse->next;
         }
-        n->next = tail;
+        traverse->next = tail;
         tail->next = NULL;
     }
-
     return n;
 }
 
