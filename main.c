@@ -29,8 +29,45 @@ Node * insertAtFirst(Node * n, int value){
     return n;
 }
 
-void insertAtIndex(){
-    //
+Node * insertAtIndex(Node *n, int index, int value){
+    Node *element = (Node *)malloc(sizeof(Node));
+    check_null(element);
+    element->data = value;
+
+    if(index == -1){
+        fprintf(stderr, "Index can't be negative\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if(NULL == n && (index != 0)){
+       fprintf(stderr, "List out of range\n");
+       exit(EXIT_FAILURE);
+    }
+    else if(NULL == n && (index == 0)){
+        n = element;
+        n->next = NULL;
+    }
+    else{
+        if(index == 0){
+            n = insertAtFirst(n, value);
+        }
+        else{
+            int counter = 0;
+            Node *traverse = n, *temp = NULL;
+            while(counter != index-1){
+                if(NULL == traverse->next){
+                    fprintf(stderr,"List out of range");
+                    exit(EXIT_FAILURE);
+                }
+                traverse = traverse->next;
+                counter++;
+            }
+            temp = traverse->next;
+            traverse->next = element;
+            element->next = temp;
+        }
+    }
+    return n;
 }
 
 Node * insertAtLast(Node *n, int value){
@@ -78,7 +115,8 @@ int main()
     Node *n = NULL;
     n = insertAtFirst(n, 4);
     n = insertAtLast(n,100);
-    n = insertAtLast(n,200);
+    n = insertAtIndex(n, 2, 999);
+    n = insertAtIndex(n, 3, 888);
     printList(n);
     return 0;
 }
