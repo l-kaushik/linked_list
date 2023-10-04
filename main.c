@@ -13,16 +13,20 @@ void check_null(void *ptr){
     }
 }
 
-void insertAtFirst(Node * n, int value){
+Node * insertAtFirst(Node * n, int value){
     Node *head = (Node *)malloc(sizeof(Node));
-    check_null(n);
+    check_null(head);
+    head->data = value;
+
     if(NULL == n){
-        n->data = value;
+      n = head;
+      n->next = NULL;
     }
     else{
         head->next = n;
         n = head;
     }
+    return n;
 }
 
 void insertAtIndex(){
@@ -47,8 +51,9 @@ int deleteAtLast(){
 
 int main()
 {
-    Node *n;
-    insertAtFirst(n, 4);
-    printf("%d",n->data);
+    Node *n = NULL;
+    n = insertAtFirst(n, 4);
+    n = insertAtFirst(n, 9);
+    printf("%d\t%d",n->data, n->next->data);
     return 0;
 }
