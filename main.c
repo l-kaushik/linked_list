@@ -66,11 +66,19 @@ int deleteAtLast(){
 
 }
 
+void printList(Node *n){
+    while(n != NULL){
+        printf("%d\t",n->data);
+        n = n->next;
+    }
+}
+
 int main()
 {
     Node *n = NULL;
     n = insertAtFirst(n, 4);
     n = insertAtLast(n,100);
-    printf("%d\t%d",n->data, n->next->data);
+    n = insertAtLast(n,200);
+    printList(n);
     return 0;
 }
