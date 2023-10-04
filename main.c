@@ -6,9 +6,9 @@ typedef struct Node{
     struct Node *next;
 } Node;
 
-void check_null(void *ptr){
+void check_null(void *ptr, char *msg){
     if(NULL == ptr){
-        fprintf(stderr, "Memory can't be allocated\n");
+        fprintf(stderr, msg);
         exit(EXIT_FAILURE);
     }
 }
@@ -17,7 +17,7 @@ void check_null(void *ptr){
 
 Node * insertAtFirst(Node * n, int value){
     Node *head = (Node *)malloc(sizeof(Node));
-    check_null(head);
+    check_null(head, "Memory can't be allocated\n");
     head->data = value;
 
     if(NULL == n){
@@ -33,17 +33,15 @@ Node * insertAtFirst(Node * n, int value){
 
 Node * insertAtIndex(Node *n, int index, int value){
     Node *element = (Node *)malloc(sizeof(Node));
-    check_null(element);
+    check_null(element, "Memory can't be allocated\n");
     element->data = value;
 
     if(index == -1){
-        fprintf(stderr, "Index can't be negative\n");
-        exit(EXIT_FAILURE);
+        check_null(NULL, "Index can't be negative\n");
     }
 
     if(NULL == n && (index != 0)){
-       fprintf(stderr, "List out of range\n");
-       exit(EXIT_FAILURE);
+       check_null(NULL, "List out of range\n");
     }
     else if(NULL == n && (index == 0)){
         n = element;
@@ -57,10 +55,7 @@ Node * insertAtIndex(Node *n, int index, int value){
             int counter = 0;
             Node *traverse = n, *temp = NULL;
             while(counter != index-1){
-                if(NULL == traverse->next){
-                    fprintf(stderr,"List out of range");
-                    exit(EXIT_FAILURE);
-                }
+                check_null(traverse->next, "List out of range\n");
                 traverse = traverse->next;
                 counter++;
             }
@@ -75,13 +70,12 @@ Node * insertAtIndex(Node *n, int index, int value){
 
 Node * insertAtLast(Node *n, int value){
     Node *tail = (Node *)malloc(sizeof(Node));
-    check_null(tail);
+    check_null(tail, "Memory can't be allocated\n");
     tail->data = value;
 
     if(NULL == n){
         n = tail;
         n->next = NULL;
-
     }
     else{
         Node *traverse = n;
@@ -104,20 +98,19 @@ Node * insert(Node *n, int value){
 Node * deleteAtFirst(Node *n){
     Node *head = NULL;
 
-    if(NULL == n){
-        fprintf(stderr,"Can't remove element from an non-existing list");
-        exit(EXIT_FAILURE);
-    }
-    else{
-        head = n->next;
-        free(n);
+    check_null(n, "List doesn't exists");
 
-        return head;
-    }
+    head = n->next;
+    free(n);
+
+    return head;
 }
 
-int deleteAtIndex(){
-
+Node * deleteAtIndex(Node *n, int index){
+    if(NULL == n){
+        fprintf(stderr,"List doesn't exists\n");
+        exit(EXIT_FAILURE);
+    }
 }
 
 Node * deleteAtLast(Node *n){
@@ -147,11 +140,8 @@ int main()
 {
     Node *n = NULL;
     n = insert(n, 4);
-    n = insert(n, 8);
-    n = deleteAtLast(n);
-    if(NULL == n){
-        printf("list is empty\n");
-    }
+    n = insert(n, 6);
+    n = insert(n, 47);
     printList(n);
     return 0;
 }
