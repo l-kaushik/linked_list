@@ -107,10 +107,27 @@ Node * deleteAtFirst(Node *n){
 }
 
 Node * deleteAtIndex(Node *n, int index){
-    if(NULL == n){
-        fprintf(stderr,"List doesn't exists\n");
-        exit(EXIT_FAILURE);
+    check_null(n, "List doesn't exists\n");
+    
+    if(index < 0){
+        check_null(NULL, "Index can't be negative");
     }
+    else if(index == 0){
+        n = deleteAtFirst(n);
+    }
+    else{
+        int counter = 0;
+        Node *traverse = n, *temp = NULL;
+        while(counter != index-1){
+            check_null(traverse->next, "List out of range\n");
+            traverse = traverse->next;
+            counter++;
+        }
+        temp = traverse->next;
+        check_null(temp, "List out of range\n");
+        traverse->next = temp->next;
+    }
+    return n;
 }
 
 Node * deleteAtLast(Node *n){
@@ -140,8 +157,8 @@ int main()
 {
     Node *n = NULL;
     n = insert(n, 4);
-    n = insert(n, 6);
-    n = insert(n, 47);
+    n = insert(n, 8);
+    n = deleteAtIndex(n, -1);
     printList(n);
     return 0;
 }
