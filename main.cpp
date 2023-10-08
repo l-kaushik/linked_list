@@ -4,18 +4,24 @@ using namespace std;
 
 
 class Node{
-public:
+private:
     int data;
     Node* next;
-    Node(int val){
-        data = val;
-        next = nullptr;
+public:
+    Node(int value, Node* next = nullptr){
+        this->data = value;
+        this->next = next;
     }
+
+    int getValue(){return this->data;}
+    Node *getNext(){return this->next;}
+    void setNext(Node *next){this->next = next;}
 };
+
 
 int main()
 {
     Node a = 4;
-    cout<<a.data;
+    cout<<a.getValue();
     return 0;
 }
