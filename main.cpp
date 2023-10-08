@@ -18,10 +18,41 @@ public:
     void setNext(Node *next){this->next = next;}
 };
 
+class LinkedList{
+private:
+    Node *head;
+public:
+    LinkedList(){head = nullptr;}
 
+    void insertAtLast(int value){
+        if(head == nullptr){
+            head = new Node(value, nullptr);
+        }
+        else{
+            Node *current = head;
+            while(current->getNext() != nullptr){
+                current = current->getNext();
+            }
+            current->setNext(new Node(value));
+        }
+    }
+
+    void printArray(){
+        Node *current = head;
+        while(current != nullptr){
+            cout<<current->getValue();
+            current = current->getNext();
+            if(current != nullptr){cout<<" ";}
+        }
+    }
+};
 int main()
 {
-    Node a = 4;
-    cout<<a.getValue();
+    LinkedList list;
+    list.insertAtLast(4);
+    list.insertAtLast(2);
+    list.insertAtLast(3);
+    list.printArray();
+
     return 0;
 }
