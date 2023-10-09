@@ -45,6 +45,17 @@ public:
             if(current != nullptr){cout<<" ";}
         }
     }
+
+    ostream& operator<<(ostream& os) const{
+        Node *current = head;
+
+        while(current != nullptr){
+            os << current->getValue();
+            current = current->getNext();
+            if(current != nullptr) os <<" ";
+        }
+        return os;
+    }
 };
 int main()
 {
