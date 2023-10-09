@@ -2,7 +2,6 @@
 
 using namespace std;
 
-
 class Node{
 private:
     int data;
@@ -34,7 +33,30 @@ public:
     }
 
     void __insert_at_index__(int index, int value){
-        
+        try{
+            if(index < 0) throw invalid_argument("Index cannot be negative.");
+        } catch (const exception& e){
+            cerr<<"Error: "<<e.what()<<endl;
+            exit(EXIT_FAILURE);
+        }
+
+        if(index == 0) __insert_at_beginning__(value);
+        else{
+            int counter = 0;
+            Node *current = head, *temp;
+            while(counter != index-1){
+                try{
+                    if(current->getNext() == nullptr) throw out_of_range("List is out of range");
+                }catch(const exception& e){
+                    cerr<<"Error: "<<e.what()<<endl;
+                    exit(EXIT_FAILURE);
+                }
+                current = current->getNext();
+                counter++;
+            }
+            temp = current->getNext();
+            current->setNext(new Node(value,temp));
+        }
     }
 
     void __insert_at_last__(int value){
@@ -79,10 +101,9 @@ int main()
 {
     LinkedList list;
     list.append(4);
-    list.prepend(99);
     list.append(2);
     list.prepend(3);
-    // list.printArray();
+    list.insert(-1,99);
     cout<<list;
 
     return 0;
