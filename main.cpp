@@ -78,63 +78,56 @@ private:
     // if returnFlag is > 0 then return the deleted value and in case of error return -1
     // if returnFlag is 0 then return 0 on success and 1 on failure
 
-    int __check_head_for_remove__(int returnFlag){
-        try{
-            if(head == nullptr) throw range_error("List is empty");
-        }
-        catch(const exception& e){
-            cerr<<"Error: "<<e.what()<<endl;
-            if(returnFlag > 0) return -1;
-            else return 1;
-        }
-        return 0;
+    bool __check_null__(void *ptr){
+        if(ptr == nullptr){return true;}
+        return false;
     }
 
-    int __remove_from_beginning__(int returnFlag){
-        int _checkNull = __check_head_for_remove__(returnFlag);
-        if (_checkNull != 0){return _checkNull;}
+    bool __remove_from_beginning__(int *removedValue){
+        if(__check_null__(head)){
+            cerr<<"List doesn't exists"<<endl;
+            return false;
+        }
 
         Node * _mustFree = head;
         int value = _mustFree->getValue();
         head = head->getNext();
         delete _mustFree;
-        if(returnFlag > 0) return value;
-        else return 0;
+        if(!__check_null__(removedValue)) *removedValue = value;
+        return true;
     }
 
-    int __remove_from_particular_index__(int index,int returnFlag){
-        int _checkNull = __check_head_for_remove__(returnFlag);
-        if(_checkNull != 0){return _checkNull;}
+    bool __remove_from_particular_index__(int index, int *removedValue){
+        // if index is 0
+        if(index == 0)return __remove_from_beginning__(removedValue);
 
-        // if index is one calling the function rather then adding an explicit code for that situation
-        if(index == 0) return __remove_from_beginning__(returnFlag);
+        if(__check_null__(head)){
+            cerr<<"List doesn't exists"<<endl;
+            return false;
+        }
+
+        // index > 0 
 
         int counter = 0, value;
-        Node *current = head, *temp;
+        Node * current = head, *temp = nullptr;
         while(counter != index-1){
-            try{
-                if(current->getNext() == nullptr) throw out_of_range("List is out of range");
-            }catch(const exception& e){
-                cerr<<"Error: "<<e.what()<<endl;
-                if(returnFlag > 0) return -1;
-                else return 1;
+            if(__check_null__(current)){
+                cerr<<"List out of range"<<endl;
+                return false;
             }
             current = current->getNext();
             counter++;
         }
         temp = current->getNext();
-        try{
-            if(temp == nullptr) throw out_of_range("List is out of range");
-        }catch(const exception& e){
-            cerr<<"Error: "<<e.what()<<endl;
-            if(returnFlag > 0)return -1;
-            else return 1;
+        if(__check_null__(temp)){
+            cerr<<"List out of range"<<endl;
+            return false;
         }
         current->setNext(temp->getNext());
         value = temp->getValue();
+        if(!__check_null__(removedValue))*removedValue = value;
         delete temp;
-        if(returnFlag > 0) return value;
-        else return 0;
+        return true;
     }
 
     int __remove_from_end__(int returnFlag){
@@ -164,8 +157,8 @@ public:
     void append(int value){ __insert_at_last__(value);}
 
     // DELETION
-    int removeFirst(int returnFlag=0){return __remove_from_beginning__(returnFlag);}
-    int removeAt(int index,int returnFlag=0){return __remove_from_particular_index__(index, returnFlag);}
+    bool removeFirst(int *removedValue=nullptr){return __remove_from_beginning__(removedValue);}
+    bool removeAt(int index,int *removedValue=nullptr){return __remove_from_particular_index__(index, removedValue);}
     int removeLast(int returnFlag=0){return __remove_from_end__(returnFlag);}
 
 };
@@ -178,7 +171,10 @@ int main()
     list.prepend(3);
     list.insert(2,99);
     cout<<list<<endl;
-    cout<<list.removeAt(45,1)<<endl;
+    int removed ;
+    list.removeAt(3);
+    list.removeFirst();
+    // cout<<removed<<endl;
     cout<<list<<endl;
     return 0;
 }
