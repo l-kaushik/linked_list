@@ -24,7 +24,20 @@ private:
 public:
     LinkedList(){head = nullptr;}
 
-    void insertAtLast(int value){
+    // INSERTION OPERATION
+
+    // implementation
+
+    void __insert_at_beginning__(int value){
+        Node *newNode = new Node(value, head);
+        head = newNode;
+    }
+
+    void __insert_at_index__(int index, int value){
+        
+    }
+
+    void __insert_at_last__(int value){
         if(head == nullptr){
             head = new Node(value, nullptr);
         }
@@ -37,15 +50,19 @@ public:
         }
     }
 
-    void printArray(){
-        Node *current = head;
-        while(current != nullptr){
-            cout<<current->getValue();
-            current = current->getNext();
-            if(current != nullptr){cout<<" ";}
-        }
+    friend istream& operator>>(istream& is, LinkedList& list){
+        int value;
+        is>>value;
+        list.__insert_at_last__(value);
+        return is;
     }
+    
+    // functions to be called
+    void prepend(int value){__insert_at_beginning__(value);}
+    void insert(int index , int value){__insert_at_index__(index,  value);}
+    void append(int value){ __insert_at_last__(value);}
 
+    // output
     friend ostream& operator<<(ostream& os, const LinkedList& list) {
         Node *current = list.head;
 
@@ -57,20 +74,14 @@ public:
         return os;
     }
 
-   friend istream& operator>>(istream& is, LinkedList& list){
-        int value;
-        is>>value;
-        list.insertAtLast(value);
-        return is;
-    }
 };
 int main()
 {
     LinkedList list;
-    // list.insertAtLast(4);
-    // list.insertAtLast(2);
-    // list.insertAtLast(3);
-    cin>>list>>list>>list>>list;
+    list.append(4);
+    list.prepend(99);
+    list.append(2);
+    list.prepend(3);
     // list.printArray();
     cout<<list;
 
