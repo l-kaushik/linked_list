@@ -20,13 +20,8 @@ public:
 class LinkedList{
 private:
     Node *head;
-public:
-    LinkedList(){head = nullptr;}
-
-    // INSERTION OPERATION
-
-    // implementation
-
+   
+    // Insertion 
     void __insert_at_beginning__(int value){
         Node *newNode = new Node(value, head);
         head = newNode;
@@ -78,22 +73,25 @@ public:
         list.__insert_at_last__(value);
         return is;
     }
+
+    // Deletion
     
-    // functions to be called
-    void prepend(int value){__insert_at_beginning__(value);}
-    void insert(int index , int value){__insert_at_index__(index,  value);}
-    void append(int value){ __insert_at_last__(value);}
+    void __remove_from_beginning__(){
+        try{
+            if(head == nullptr) throw range_error("List is empty");
+        }
+        catch(const exception& e){
+            cerr<<"Error: "<<e.what()<<endl;
+            exit(EXIT_FAILURE);
+        }
+        Node * _mustFree = head;
+        int value = _mustFree->getValue();
+        head = head->getNext();
+        delete _mustFree;
+    }
 
-    // DELETION
-
-    int __remove_from_beginning__(){}
-    int __remove_from_particular_index__(int index){}
-    int __remove_from_end__(){}
-
-    // functions to be called
-    int removeFirst(){__remove_from_beginning__();}
-    int removeAt(int index){__remove_from_particular_index__(index);}
-    int removeLast(){__remove_from_end__();}
+    void __remove_from_particular_index__(int index){}
+    void __remove_from_end__(){}
 
     // OUTPUT
     friend ostream& operator<<(ostream& os, const LinkedList& list) {
@@ -106,6 +104,18 @@ public:
         }
         return os;
     }
+public:
+    LinkedList(){head = nullptr;}
+
+    // INSERTION 
+    void prepend(int value){__insert_at_beginning__(value);}
+    void insert(int index , int value){__insert_at_index__(index,  value);}
+    void append(int value){ __insert_at_last__(value);}
+
+    // DELETION
+    void removeFirst(){__remove_from_beginning__();}
+    void removeAt(int index){__remove_from_particular_index__(index);}
+    void removeLast(){__remove_from_end__();}
 
 };
 int main()
@@ -114,8 +124,9 @@ int main()
     list.append(4);
     list.append(2);
     list.prepend(3);
-    list.insert(-1,99);
-    cout<<list;
+    list.insert(2,99);
+    cout<<list<<endl;
+    list.removeFirst();
 
     return 0;
 }
