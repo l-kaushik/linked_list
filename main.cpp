@@ -75,23 +75,28 @@ private:
     }
 
     // Deletion
-    
-    void __remove_from_beginning__(){
+    // if returnFlag is > 0 then return the deleted value and in case of error return -1
+    // if returnFlag is 0 then return 0 on success and 1 on failure
+
+    int __remove_from_beginning__(int returnFlag){
         try{
             if(head == nullptr) throw range_error("List is empty");
         }
         catch(const exception& e){
             cerr<<"Error: "<<e.what()<<endl;
-            exit(EXIT_FAILURE);
+            if(returnFlag > 0) return -1;
+            else return 1;
         }
         Node * _mustFree = head;
         int value = _mustFree->getValue();
         head = head->getNext();
         delete _mustFree;
+        if(returnFlag > 0) return value;
+        else return 0;
     }
 
-    void __remove_from_particular_index__(int index){}
-    void __remove_from_end__(){}
+    int __remove_from_particular_index__(int index,int returnFlag){}
+    int __remove_from_end__(int returnFlag){}
 
     // OUTPUT
     friend ostream& operator<<(ostream& os, const LinkedList& list) {
@@ -109,15 +114,16 @@ public:
 
     // INSERTION 
     void prepend(int value){__insert_at_beginning__(value);}
-    void insert(int index , int value){__insert_at_index__(index,  value);}
+    void insert(int index , int value){__insert_at_index__(index, value);}
     void append(int value){ __insert_at_last__(value);}
 
     // DELETION
-    void removeFirst(){__remove_from_beginning__();}
-    void removeAt(int index){__remove_from_particular_index__(index);}
-    void removeLast(){__remove_from_end__();}
+    int removeFirst(int returnFlag=0){return __remove_from_beginning__(returnFlag);}
+    int removeAt(int index,int returnFlag=0){return __remove_from_particular_index__(index, returnFlag);}
+    int removeLast(int returnFlag=0){return __remove_from_end__(returnFlag);}
 
 };
+
 int main()
 {
     LinkedList list;
@@ -126,7 +132,7 @@ int main()
     list.prepend(3);
     list.insert(2,99);
     cout<<list<<endl;
-    list.removeFirst();
+    cout<<list.removeFirst(2);
 
     return 0;
 }
