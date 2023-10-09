@@ -84,7 +84,18 @@ public:
     void insert(int index , int value){__insert_at_index__(index,  value);}
     void append(int value){ __insert_at_last__(value);}
 
-    // output
+    // DELETION
+
+    int __remove_from_beginning__(){}
+    int __remove_from_particular_index__(int index){}
+    int __remove_from_end__(){}
+
+    // functions to be called
+    int removeFirst(){__remove_from_beginning__();}
+    int removeAt(int index){__remove_from_particular_index__(index);}
+    int removeLast(){__remove_from_end__();}
+
+    // OUTPUT
     friend ostream& operator<<(ostream& os, const LinkedList& list) {
         Node *current = list.head;
 
