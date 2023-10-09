@@ -11,10 +11,12 @@ void check_null(Node *, void *, char *);
 Node * insertAtFirst(Node *, int );
 Node * insertAtIndex(Node *, int , int );
 Node * insertAtLast(Node *, int );
-Node * insert(Node *, int );
-Node * deleteAtFirst(Node *);
-Node * deleteAtIndex(Node *, int );
-Node * deleteAtLast(Node *);
+Node * prepend(Node *, int);
+Node * insert(Node *, int, int );
+Node * append(Node *, int);
+Node * deleteFirst(Node *);
+Node * deleteAt(Node *, int );
+Node * deleteLast(Node *);
 Node * delete(Node *);
 void printList(Node *);
 void freeList(Node *);
@@ -102,14 +104,22 @@ Node * insertAtLast(Node *head, int value){
     return head;
 }
 
-Node * insert(Node *head, int value){
+Node * prepend(Node *head, int value){
+    Node *newHead = insertAtFirst(head, value);
+    return newHead;
+}
+Node * insert(Node *head, int index, int value){
+    Node *newHead = insertAtIndex(head, index, value);
+    return newHead;
+}
+Node * append(Node *head, int value){
     Node *newHead = insertAtLast(head, value);
     return newHead;
 }
 
 // deletion operations
 
-Node * deleteAtFirst(Node *head){
+Node * deleteFirst(Node *head){
     Node *newHead = NULL;
 
     check_null(head, head, "List doesn't exists");
@@ -120,14 +130,14 @@ Node * deleteAtFirst(Node *head){
     return newHead;
 }
 
-Node * deleteAtIndex(Node *head, int index){
+Node * deleteAt(Node *head, int index){
     check_null(head, head, "List doesn't exists\n");
     
     if(index < 0){
         check_null(head, NULL, "Index can't be negative");
     }
     else if(index == 0){
-        head = deleteAtFirst(head);
+        head = deleteFirst(head);
     }
     else{
         int counter = 0;
@@ -145,7 +155,7 @@ Node * deleteAtIndex(Node *head, int index){
     return head;
 }
 
-Node * deleteAtLast(Node *head){
+Node * deleteLast(Node *head){
     Node * temp = head, *tail = NULL;
 
     while(temp->next != NULL){
@@ -162,7 +172,7 @@ Node * deleteAtLast(Node *head){
 }
 
 Node * delete(Node *head){
-    Node * newHead = deleteAtLast(head);
+    Node * newHead = deleteLast(head);
     return newHead;
 }
 
@@ -184,9 +194,9 @@ void freeList(Node *head){
 int main()
 {
     Node *n = NULL;
-    n = insert(n, 4);
-    n = insert(n, 8);
-    n = delete(n);
+    n = append(n,4);
+    n = prepend(n,8);
+    n = deleteFirst(n);
     printList(n);
     freeList(n);
     return 0;
