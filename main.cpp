@@ -46,8 +46,8 @@ public:
         }
     }
 
-    ostream& operator<<(ostream& os) const{
-        Node *current = head;
+    friend ostream& operator<<(ostream& os, const LinkedList& list) {
+        Node *current = list.head;
 
         while(current != nullptr){
             os << current->getValue();
@@ -56,14 +56,23 @@ public:
         }
         return os;
     }
+
+   friend istream& operator>>(istream& is, LinkedList& list){
+        int value;
+        is>>value;
+        list.insertAtLast(value);
+        return is;
+    }
 };
 int main()
 {
     LinkedList list;
-    list.insertAtLast(4);
-    list.insertAtLast(2);
-    list.insertAtLast(3);
-    list.printArray();
+    // list.insertAtLast(4);
+    // list.insertAtLast(2);
+    // list.insertAtLast(3);
+    cin>>list>>list>>list>>list;
+    // list.printArray();
+    cout<<list;
 
     return 0;
 }
