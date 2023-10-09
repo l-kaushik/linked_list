@@ -78,7 +78,7 @@ private:
     // if returnFlag is > 0 then return the deleted value and in case of error return -1
     // if returnFlag is 0 then return 0 on success and 1 on failure
 
-    int __remove_from_beginning__(int returnFlag){
+    int __check_head_for_remove__(int returnFlag){
         try{
             if(head == nullptr) throw range_error("List is empty");
         }
@@ -87,6 +87,13 @@ private:
             if(returnFlag > 0) return -1;
             else return 1;
         }
+        return 0;
+    }
+
+    int __remove_from_beginning__(int returnFlag){
+        int _checkNull = __check_head_for_remove__(returnFlag);
+        if (_checkNull != 0){return _checkNull;}
+
         Node * _mustFree = head;
         int value = _mustFree->getValue();
         head = head->getNext();
@@ -95,8 +102,47 @@ private:
         else return 0;
     }
 
-    int __remove_from_particular_index__(int index,int returnFlag){}
-    int __remove_from_end__(int returnFlag){}
+    int __remove_from_particular_index__(int index,int returnFlag){
+        int _checkNull = __check_head_for_remove__(returnFlag);
+        if(_checkNull != 0){return _checkNull;}
+
+        // if index is one calling the function rather then adding an explicit code for that situation
+        if(index == 0) return __remove_from_beginning__(returnFlag);
+
+        int counter = 0, value;
+        Node *current = head, *temp;
+        while(counter != index-1){
+            try{
+                if(current->getNext() == nullptr) throw out_of_range("List is out of range");
+            }catch(const exception& e){
+                cerr<<"Error: "<<e.what()<<endl;
+                if(returnFlag > 0) return -1;
+                else return 1;
+            }
+            current = current->getNext();
+            counter++;
+        }
+        temp = current->getNext();
+        try{
+            if(temp == nullptr) throw out_of_range("List is out of range");
+        }catch(const exception& e){
+            cerr<<"Error: "<<e.what()<<endl;
+            if(returnFlag > 0)return -1;
+            else return 1;
+        }
+        current->setNext(temp->getNext());
+        value = temp->getValue();
+        delete temp;
+        if(returnFlag > 0) return value;
+        else return 0;
+    }
+
+    int __remove_from_end__(int returnFlag){
+        Node *current = head;
+        while(current->getNext() != nullptr){
+            current = current->getNext();
+        }
+    }
 
     // OUTPUT
     friend ostream& operator<<(ostream& os, const LinkedList& list) {
@@ -132,7 +178,7 @@ int main()
     list.prepend(3);
     list.insert(2,99);
     cout<<list<<endl;
-    cout<<list.removeFirst(2);
-
+    cout<<list.removeAt(45,1)<<endl;
+    cout<<list<<endl;
     return 0;
 }
