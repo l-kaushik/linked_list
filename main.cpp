@@ -119,7 +119,7 @@ private:
             counter++;
         }
         temp = current->getNext();
-        if(__check_null__(temp)){
+        if(__check_null__(temp) || __check_null__(current)){
             cerr<<"List out of range"<<endl;
             return false;
         }
@@ -130,11 +130,23 @@ private:
         return true;
     }
 
-    int __remove_from_end__(int returnFlag){
-        Node *current = head;
+    bool __remove_from_end__(int* removedValue){
+        if(__check_null__(head)){
+            cerr<<"List doesn't exists"<<endl;
+            return false;
+        }
+        int value;
+        Node *current = head, *previous = nullptr;
         while(current->getNext() != nullptr){
+            previous = current;
             current = current->getNext();
         }
+        value = current->getValue();
+        if(previous == nullptr){head = nullptr;}
+        else{previous->setNext(nullptr);}
+        delete current;
+        if(!__check_null__(removedValue))*removedValue = value;
+        return true;    
     }
 
     // OUTPUT
@@ -159,7 +171,7 @@ public:
     // DELETION
     bool removeFirst(int *removedValue=nullptr){return __remove_from_beginning__(removedValue);}
     bool removeAt(int index,int *removedValue=nullptr){return __remove_from_particular_index__(index, removedValue);}
-    int removeLast(int returnFlag=0){return __remove_from_end__(returnFlag);}
+    bool removeLast(int *removedValue=nullptr){return __remove_from_end__(removedValue);}
 
 };
 
@@ -172,7 +184,8 @@ int main()
     list.insert(2,99);
     cout<<list<<endl;
     int removed ;
-    list.removeAt(3);
+    list.removeAt(2);
+    list.removeLast();
     list.removeFirst();
     // cout<<removed<<endl;
     cout<<list<<endl;
