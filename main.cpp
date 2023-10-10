@@ -75,8 +75,7 @@ private:
     }
 
     // Deletion
-    // if returnFlag is > 0 then return the deleted value and in case of error return -1
-    // if returnFlag is 0 then return 0 on success and 1 on failure
+    // if removedValue pointer is given the removedValue will be given to it
 
     bool __check_null__(void *ptr){
         if(ptr == nullptr){return true;}
@@ -172,7 +171,7 @@ public:
     bool removeFirst(int *removedValue=nullptr){return __remove_from_beginning__(removedValue);}
     bool removeAt(int index,int *removedValue=nullptr){return __remove_from_particular_index__(index, removedValue);}
     bool removeLast(int *removedValue=nullptr){return __remove_from_end__(removedValue);}
-
+    
 };
 
 int main()
