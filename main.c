@@ -52,16 +52,16 @@ Node * insertAtIndex(Node *head, int index, int value){
     check_null(head, element, "Memory can't be allocated\n");
     element->data = value;
 
-    if(index == -1){
+    if(index < 0){
         check_null(head, NULL, "Index can't be negative\n");
     }
-
-    if(NULL == head && (index != 0)){
-       check_null(head, NULL, "List out of range\n");
+    else if(NULL == head && (index != 0)){
+        check_null(head,NULL,"List doesn't exists\n");
     }
     else if(NULL == head && (index == 0)){
         head = element;
         head->next = NULL;
+        return head;
     }
     else{
         if(index == 0){
@@ -194,9 +194,11 @@ void freeList(Node *head){
 int main()
 {
     Node *n = NULL;
-    n = append(n,4);
-    n = prepend(n,8);
-    n = deleteFirst(n);
+    // n = append(n,4);
+    // n = prepend(n,8);
+    n = insert(n,23,4);
+    // n = insert(n,0,8);
+    // n = deleteFirst(n);
     printList(n);
     freeList(n);
     return 0;
