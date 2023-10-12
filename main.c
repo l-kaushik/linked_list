@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include "sortingalgo.h"
 
 typedef struct Node{
     int data;
@@ -193,13 +194,14 @@ void freeList(Node *head){
 
 int main()
 {
-    Node *n = NULL;
-    // n = append(n,4);
-    // n = prepend(n,8);
-    n = insert(n,23,4);
-    // n = insert(n,0,8);
-    // n = deleteFirst(n);
-    printList(n);
-    freeList(n);
+    bubbleSort();
+    // Node *n = NULL;
+    // // n = append(n,4);
+    // // n = prepend(n,8);
+    // n = insert(n,23,4);
+    // // n = insert(n,0,8);
+    // // n = deleteFirst(n);
+    // printList(n);
+    // freeList(n);
     return 0;
 }
