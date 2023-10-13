@@ -2,6 +2,6 @@
 #define SORTINGALGO_H
 
 //function prototypes
-void bubbleSort();
+void bubbleSort(Node *, int);
 
 #endif
