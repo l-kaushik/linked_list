@@ -2,10 +2,12 @@
 #include<stdlib.h>
 #include "sortingalgo.h"
 
+#ifndef SORTINGALGO_H
 typedef struct Node{
     int data;
     struct Node *next;
 } Node;
+#endif
 
 // function prototyping
 void check_null(Node *, void *, char *);
@@ -206,11 +208,11 @@ void freeList(Node *head){
 int main()
 {
     Node *n = NULL;
-    for(int i = 1; i<30; i++){
+    for(int i = 1; i<10; i++){
         n = append(n,rand()%100);
     }
     printList(n);
-    bubbleSort(n, length(n));
+    selectionSort(n);
     printf("\n\n");
     printList(n);
     freeList(n);

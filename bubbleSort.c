@@ -1,9 +1,5 @@
 #include<stdio.h>
-
-typedef struct Node{
-    int data;
-    struct Node *next;
-} Node;
+#include "sortingalgo.h"
 
 void bubbleSort(Node *a, int size){
     int temp;
