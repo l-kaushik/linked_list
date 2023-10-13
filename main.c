@@ -206,16 +206,12 @@ void freeList(Node *head){
 int main()
 {
     Node *n = NULL;
-    n = append(n,4);
-    n = prepend(n,8);
-    n = insert(n,0,4);
-    n = prepend(n,23);
-    n = prepend(n,32);
-    n = prepend(n,64);
-    // n = deleteFirst(n);
+    for(int i = 1; i<30; i++){
+        n = append(n,rand()%100);
+    }
     printList(n);
     bubbleSort(n, length(n));
-    printf("\n");
+    printf("\n\n");
     printList(n);
     freeList(n);
     return 0;
