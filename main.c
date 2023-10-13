@@ -19,6 +19,7 @@ Node * deleteFirst(Node *);
 Node * deleteAt(Node *, int );
 Node * deleteLast(Node *);
 Node * delete(Node *);
+int length(Node *);
 void printList(Node *);
 void freeList(Node *);
 
@@ -177,6 +178,16 @@ Node * delete(Node *head){
     return newHead;
 }
 
+int length(Node *head){
+    int count = 0;
+    while (head != NULL)
+    {
+        head = head->next;
+        count++;
+    }
+    return count;  
+}
+
 void printList(Node *head){
     while(head != NULL){
         printf("%d\t",head->data);
@@ -194,14 +205,16 @@ void freeList(Node *head){
 
 int main()
 {
-    bubbleSort();
-    // Node *n = NULL;
-    // // n = append(n,4);
-    // // n = prepend(n,8);
-    // n = insert(n,23,4);
-    // // n = insert(n,0,8);
-    // // n = deleteFirst(n);
-    // printList(n);
-    // freeList(n);
+    Node *n = NULL;
+    n = append(n,4);
+    n = prepend(n,8);
+    n = insert(n,0,4);
+    n = prepend(n,23);
+    n = prepend(n,32);
+    n = prepend(n,64);
+    // n = deleteFirst(n);
+    printList(n);
+    printf("\n%d",length(n));
+    freeList(n);
     return 0;
 }

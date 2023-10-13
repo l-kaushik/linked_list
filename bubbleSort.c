@@ -1,5 +1,5 @@
 #include<stdio.h>
 
-void bubbleSort(){
-    printf("Hello world");
+void bubbleSort(int a[], int size){
+   
 }
