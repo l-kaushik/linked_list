@@ -214,7 +214,9 @@ int main()
     n = prepend(n,64);
     // n = deleteFirst(n);
     printList(n);
-    printf("\n%d",length(n));
+    bubbleSort(n, length(n));
+    printf("\n");
+    printList(n);
     freeList(n);
     return 0;
 }
