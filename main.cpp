@@ -1,4 +1,6 @@
 #include <iostream>
+#include <random>
+#include <ctime>
 
 using namespace std;
 
@@ -36,7 +38,14 @@ private:
     friend ostream &operator<<(ostream &os, const LinkedList &list);
 
 public:
+    // constructor
     LinkedList() { head = nullptr; }
+
+    // destructor
+    ~LinkedList(){
+        while(head != nullptr)
+            removeLast();
+    }
 
     // INSERTION
     void prepend(int value) { __insert_at_beginning__(value); }
@@ -240,16 +249,16 @@ ostream &operator<<(ostream &os, const LinkedList &list)
 int main()
 {
     LinkedList list;
-    list.append(4);
-    list.append(2);
-    list.prepend(3);
-    list.insert(2, 99);
-    cout << list << endl;
-    int removed;
-    list.removeAt(2);
-    list.removeLast();
-    list.removeFirst();
-    // cout<<removed<<endl;
-    cout << list << endl;
+
+    // random number generator engine
+    mt19937 rng(static_cast<unsigned>(time(nullptr)));
+
+    uniform_int_distribution<int> distribution(1,100);
+
+    for(int i = 0;  i<10; i++){
+        cout<<distribution(rng)<<"\t";
+    }
+
+
     return 0;
 }
