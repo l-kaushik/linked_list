@@ -9,4 +9,5 @@ typedef struct Node {
 //function prototypes
 void bubbleSort(Node *, int);
 void selectionSort(Node *);
+void quickSort(Node *, Node *);
 #endif

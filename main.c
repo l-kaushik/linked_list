@@ -216,14 +216,14 @@ void freeList(Node *head){
 
 int main()
 {
-    Node *n = NULL;
+    Node *head = NULL;
     for(int i = 1; i<10; i++){
-        n = append(n,rand()%100);
+        head = append(head,rand()%100);
     }
-    printList(n);
-    selectionSort(n);
+    printList(head);
+    quickSort(head, lastNode(head));
     printf("\n\n");
-    printList(n);
-    freeList(n);
+    printList(head);
+    freeList(head);
     return 0;
 }
