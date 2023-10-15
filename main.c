@@ -21,6 +21,7 @@ Node * deleteFirst(Node *);
 Node * deleteAt(Node *, int );
 Node * deleteLast(Node *);
 Node * delete(Node *);
+Node * lastNode(Node *);
 int length(Node *);
 void printList(Node *);
 void freeList(Node *);
@@ -178,6 +179,14 @@ Node * deleteLast(Node *head){
 Node * delete(Node *head){
     Node * newHead = deleteLast(head);
     return newHead;
+}
+
+Node * lastNode(Node *head){
+    Node *temp = head;
+    while(temp!= NULL && temp->next!= NULL){
+        temp = temp->next;
+    }
+    return temp;
 }
 
 int length(Node *head){
