@@ -29,7 +29,31 @@ class LinkedList:
         else:
             new_node.next = self.head
             self.head = new_node
+    
+    def insert(self, pos, data):
+        if pos < 0:
+            raise IndexError("Negative index is not supported")
+        
+        if pos == 0:
+            self.prepend(data)
+            return
+        
+        counter = 0
+        current = self.head
+        prev = current
+        new_node = Node(data)
+        
+        while(counter < pos):
+            if not current:
+                raise IndexError("Index out of range")
+            else:
+                prev = current
+                current = current.next
+                counter = counter + 1
 
+        new_node.next = current
+        prev.next = new_node
+        
     def extend(self, _list):
         ''' append elements of a list or tuple at the end of the linked list'''
         new_node = Node(_list[0])
@@ -70,4 +94,5 @@ if __name__ == "__main__":
     l.append(33)
     l.extend([1,2,3,4,5,6,7,8])
     l.prepend(999)
+    l.insert(2,1024)
     l.display()
