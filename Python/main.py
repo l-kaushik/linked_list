@@ -103,11 +103,29 @@ class LinkedList:
     # dunder methods
     def __str__(self):
         return self._generate_output()
+    
+    def __setitem__(self, index, value):
+        self.insert(index, value)
+
+    def __getitem__(self, index):
+        if index < 0:
+            index = self.size + index
+            if index < 0:
+                raise IndexError("Index out of range")
+        
+        counter = 0
+        current = self.head
+        while(counter < index):
+            if not current.next:
+                return current.data
+            current = current.next 
+            counter += 1
+        return current.data
 
 if __name__ == "__main__":
     l = LinkedList()
     l.append(33)
     l.extend([1,2,3,4,5,6,7,8])
     l.prepend(999)
-    l.insert(1,1024)
+    l[-1] = 1023
     l.display()
