@@ -5,8 +5,11 @@ class Node:
         self.next = None
 
 class LinkedList:
-    def __init__(self):
+    def __init__(self, input_string = None):
         self.head = None
+        if input_string:
+            for char in input_string:
+                self.append(char)
     
     def append(self, data):
         ''' insert a single value at the end of the linked list'''
@@ -38,15 +41,25 @@ class LinkedList:
                 current.next = Node(element)
                 current = current.next
 
-    def display(self):
+    def _generate_output(self):
         current = self.head
+        elements = ''
         while current:
-            print(current.data, end=' -> ')
+            elements = elements + str(current.data) + ' -> '
             current = current.next
-        print("NULL")
+        elements = elements + 'None'
+        return elements
+
+    def display(self):
+        print(self._generate_output())
+
+    # dunder methods
+    def __str__(self):
+        return self._generate_output()
 
 if __name__ == "__main__":
     l = LinkedList()
     l.append(33)
     l.extend([1,2,3,4,5,6,7,8])
     l.display()
+    print(LinkedList("hello"))
