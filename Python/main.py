@@ -7,6 +7,8 @@ class Node:
 class LinkedList:
     def __init__(self, input_string = None):
         self.head = None
+        self.size = 0
+
         if input_string:
             for char in input_string:
                 self.append(char)
@@ -16,24 +18,30 @@ class LinkedList:
         new_node = Node(data)
         if not self.head:
             self.head = new_node
+            self.size += 1
         else:
             current = self.head
             while current.next:
                 current = current.next
             current.next = new_node
+            self.size += 1
     
     def prepend(self, data):
         new_node = Node(data)
         if not self.head:
             self.head = new_node
+            self.size += 1
         else:
             new_node.next = self.head
             self.head = new_node
+            self.size += 1
     
     def insert(self, pos, data):
         if pos < 0:
-            raise IndexError("Negative index is not supported")
-        
+            pos = self.size + pos
+            if pos < 0:
+                raise IndexError("Index out of range")
+
         if pos == 0:
             self.prepend(data)
             return
@@ -45,7 +53,10 @@ class LinkedList:
         
         while(counter < pos):
             if not current:
-                raise IndexError("Index out of range")
+                prev.next = new_node
+                new_node.next = current
+                self.size += 1
+                return
             else:
                 prev = current
                 current = current.next
@@ -53,6 +64,7 @@ class LinkedList:
 
         new_node.next = current
         prev.next = new_node
+        self.size += 1
         
     def extend(self, _list):
         ''' append elements of a list or tuple at the end of the linked list'''
@@ -60,10 +72,12 @@ class LinkedList:
         # if head is None
         if not self.head:
             self.head = new_node
+            self.size += 1
             current = self.head
             for i in range(1,len(_list)):
                 current.next = Node(_list[i])
                 current = current.next
+                self.size += 1
         # if head is not None then traverse to last node then start appending 
         else:
             current = self.head
@@ -72,6 +86,7 @@ class LinkedList:
             for element in _list:
                 current.next = Node(element)
                 current = current.next
+                self.size += 1
 
     def _generate_output(self):
         current = self.head
@@ -94,5 +109,5 @@ if __name__ == "__main__":
     l.append(33)
     l.extend([1,2,3,4,5,6,7,8])
     l.prepend(999)
-    l.insert(2,1024)
+    l.insert(1,1024)
     l.display()
