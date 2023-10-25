@@ -116,8 +116,16 @@ class LinkedList:
         prev.next = current.next
         return data
     
-    def removeLast():
-        pass
+    def removeLast(self) -> int:
+        current = self.head
+        prev = current
+        while current.next:
+            prev = current
+            current = current.next 
+        
+        data = current.data
+        prev.next = None
+        return data
     
     def _format_index(self,index: int) -> int:
         if index < 0:
@@ -164,5 +172,6 @@ if __name__ == "__main__":
     l.extend([1,2,3,4,5,6,7,8])
     l.prepend(999)
     l[-1] = 1023
-    print(l.removeAt(345))
+    print(l.removeLast())
+    l.append(10)
     l.display()
