@@ -41,10 +41,7 @@ class LinkedList:
     
     def insert(self, index, data):
         ''' insert a single value at a given position or index of the linked list'''
-        if index < 0:
-            index = self.size + index
-            if index < 0:
-                raise IndexError("Index out of range")
+        index = self._format_index(index)
 
         if index == 0:
             self.prepend(data)
@@ -102,8 +99,15 @@ class LinkedList:
 
     def removeLast():
         pass
+    
+    def _format_index(self,index: int) -> int:
+        if index < 0:
+            index = self.size + index
+            if index < 0:
+                raise IndexError("Index out of range")
+        return index
 
-    def _generate_output(self):
+    def _generate_output(self) -> str:
         '''This function will generate output string of the linked list'''
         current = self.head
         elements = ''
@@ -125,11 +129,7 @@ class LinkedList:
         self.insert(index, value)
 
     def __getitem__(self, index):
-        if index < 0:
-            index = self.size + index
-            if index < 0:
-                raise IndexError("Index out of range")
-        
+        index = self._format_index(index)
         counter = 0
         current = self.head
         while(counter < index):
