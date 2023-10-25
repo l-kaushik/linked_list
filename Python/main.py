@@ -19,5 +19,12 @@ class LinkedList:
                 current = current.next
             current.next = new_node
 
+    def display(self):
+        current = self.head
+        while current:
+            print(current.data, end=' -> ')
+            current = current.next
+        print("NULL")
+
 if __name__ == "__main__":
     l = LinkedList()
