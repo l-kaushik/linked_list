@@ -39,14 +39,14 @@ class LinkedList:
             self.head = new_node
             self.size += 1
     
-    def insert(self, pos, data):
+    def insert(self, index, data):
         ''' insert a single value at a given position or index of the linked list'''
-        if pos < 0:
-            pos = self.size + pos
-            if pos < 0:
+        if index < 0:
+            index = self.size + index
+            if index < 0:
                 raise IndexError("Index out of range")
 
-        if pos == 0:
+        if index == 0:
             self.prepend(data)
             return
         
@@ -55,7 +55,7 @@ class LinkedList:
         prev = current
         new_node = Node(data)
         
-        while(counter < pos):
+        while(counter < index):
             if not current:
                 prev.next = new_node
                 new_node.next = current
@@ -97,7 +97,7 @@ class LinkedList:
         self.head = self.head.next
         self.size -= 1
 
-    def removeAt():
+    def removeAt(self, index):
         pass
 
     def removeLast():
