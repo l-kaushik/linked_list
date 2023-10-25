@@ -90,13 +90,32 @@ class LinkedList:
                 self.size += 1
 
     # Deletion Operations
-    def removeFirst(self):
+    def removeFirst(self) -> int:
+        data = self.head.data
         self.head = self.head.next
         self.size -= 1
+        return data
 
-    def removeAt(self, index):
-        pass
+    def removeAt(self, index) -> int:
+        index = self._format_index(index)
+        counter = 0
+        current = self.head
+        prev = current
 
+        if(index == 0):
+            return self.removeFirst()
+
+        while(counter < index):
+            if not current:
+                raise IndexError("Index out of range")
+            else:
+                prev = current
+                current = current.next
+                counter += 1
+        data = current.data
+        prev.next = current.next
+        return data
+    
     def removeLast():
         pass
     
@@ -145,5 +164,5 @@ if __name__ == "__main__":
     l.extend([1,2,3,4,5,6,7,8])
     l.prepend(999)
     l[-1] = 1023
-    l.removeFirst()
+    print(l.removeAt(345))
     l.display()
