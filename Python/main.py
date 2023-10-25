@@ -18,6 +18,25 @@ class LinkedList:
             while current.next:
                 current = current.next
             current.next = new_node
+    
+    def extend(self, _list):
+        ''' append elements of a list or tuple at the end of the linked list'''
+        new_node = Node(_list[0])
+        # if head is None
+        if not self.head:
+            self.head = new_node
+            current = self.head
+            for i in range(1,len(_list)):
+                current.next = Node(_list[i])
+                current = current.next
+        # if head is not None then traverse to last node then start appending 
+        else:
+            current = self.head
+            while current.next:
+                current = current.next
+            for element in _list:
+                current.next = Node(element)
+                current = current.next
 
     def display(self):
         current = self.head
@@ -28,3 +47,6 @@ class LinkedList:
 
 if __name__ == "__main__":
     l = LinkedList()
+    l.append(33)
+    l.extend([1,2,3,4,5,6,7,8])
+    l.display()
