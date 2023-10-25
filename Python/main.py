@@ -13,6 +13,8 @@ class LinkedList:
             for char in input_string:
                 self.append(char)
     
+    # Insertion Operations
+
     def append(self, data):
         ''' insert a single value at the end of the linked list'''
         new_node = Node(data)
@@ -27,6 +29,7 @@ class LinkedList:
             self.size += 1
     
     def prepend(self, data):
+        ''' insert a single value at first index of the linked list'''
         new_node = Node(data)
         if not self.head:
             self.head = new_node
@@ -37,6 +40,7 @@ class LinkedList:
             self.size += 1
     
     def insert(self, pos, data):
+        ''' insert a single value at a given position or index of the linked list'''
         if pos < 0:
             pos = self.size + pos
             if pos < 0:
@@ -65,7 +69,7 @@ class LinkedList:
         new_node.next = current
         prev.next = new_node
         self.size += 1
-        
+    
     def extend(self, _list):
         ''' append elements of a list or tuple at the end of the linked list'''
         new_node = Node(_list[0])
@@ -88,7 +92,19 @@ class LinkedList:
                 current = current.next
                 self.size += 1
 
+    # Deletion Operations
+    def removeFirst(self):
+        self.head = self.head.next
+        self.size -= 1
+
+    def removeAt():
+        pass
+
+    def removeLast():
+        pass
+
     def _generate_output(self):
+        '''This function will generate output string of the linked list'''
         current = self.head
         elements = ''
         while current:
@@ -100,10 +116,11 @@ class LinkedList:
     def display(self):
         print(self._generate_output())
 
-    # dunder methods
+    # Dunder methods
     def __str__(self):
         return self._generate_output()
     
+    # making linked list subscriptable
     def __setitem__(self, index, value):
         self.insert(index, value)
 
@@ -128,4 +145,5 @@ if __name__ == "__main__":
     l.extend([1,2,3,4,5,6,7,8])
     l.prepend(999)
     l[-1] = 1023
+    l.removeFirst()
     l.display()
