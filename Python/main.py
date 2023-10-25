@@ -22,6 +22,14 @@ class LinkedList:
                 current = current.next
             current.next = new_node
     
+    def prepend(self, data):
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+        else:
+            new_node.next = self.head
+            self.head = new_node
+
     def extend(self, _list):
         ''' append elements of a list or tuple at the end of the linked list'''
         new_node = Node(_list[0])
@@ -61,5 +69,5 @@ if __name__ == "__main__":
     l = LinkedList()
     l.append(33)
     l.extend([1,2,3,4,5,6,7,8])
+    l.prepend(999)
     l.display()
-    print(LinkedList("hello"))
