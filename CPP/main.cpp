@@ -2,8 +2,6 @@
 #include <random>
 #include <ctime>
 
-using namespace std;
-
 class Node
 {
 private:
@@ -11,11 +9,7 @@ private:
     Node *next;
 
 public:
-    Node(int value, Node *next = nullptr)
-    {
-        this->data = value;
-        this->next = next;
-    }
+    Node(int value, Node *next = nullptr) : data(value), next(next){}
 
     int getValue() { return this->data; }
     Node *getNext() { return this->next; }
@@ -30,16 +24,16 @@ private:
     void __insert_at_beginning__(int);
     void __insert_at_index__(int , int );
     void __insert_at_last__(int );
-    friend istream &operator>>(istream &, LinkedList &);
+    friend std::istream &operator>>(std::istream &, LinkedList &);
     bool __check_null__(void *);
     bool __remove_from_beginning__(int *);
     bool __remove_from_particular_index__(int, int*);
     bool __remove_from_end__(int *);
-    friend ostream &operator<<(ostream &os, const LinkedList &list);
+    friend std::ostream &operator<<(std::ostream &os, const LinkedList &list);
 
 public:
     // constructor
-    LinkedList() { head = nullptr; }
+    LinkedList() : head(nullptr){}
 
     // destructor
     ~LinkedList(){
@@ -72,11 +66,11 @@ void LinkedList::__insert_at_index__(int index, int value)
     try
     {
         if (index < 0)
-            throw invalid_argument("Index cannot be negative.");
+            throw std::invalid_argument("Index cannot be negative.");
     }
-    catch (const exception &e)
+    catch (const std::exception &e)
     {
-        cerr << "Error: " << e.what() << endl;
+        std::cerr << "Error: " << e.what() << std::endl;
         exit(EXIT_FAILURE);
     }
 
@@ -91,11 +85,11 @@ void LinkedList::__insert_at_index__(int index, int value)
             try
             {
                 if (current->getNext() == nullptr)
-                    throw out_of_range("List is out of range");
+                    throw std::out_of_range("List is out of range");
             }
-            catch (const exception &e)
+            catch (const std::exception &e)
             {
-                cerr << "Error: " << e.what() << endl;
+                std::cerr << "Error: " << e.what() << std::endl;
                 exit(EXIT_FAILURE);
             }
             current = current->getNext();
@@ -123,7 +117,7 @@ void LinkedList::__insert_at_last__(int value)
     }
 }
 
-istream &operator>>(istream &is, LinkedList &list)
+std::istream &operator>>(std::istream &is, LinkedList &list)
 {
     int value;
     is >> value;
@@ -147,7 +141,7 @@ bool LinkedList::__remove_from_beginning__(int *removedValue)
 {
     if (__check_null__(head))
     {
-        cerr << "List doesn't exists" << endl;
+        std::cerr << "List doesn't exists" << std::endl;
         return false;
     }
 
@@ -168,7 +162,7 @@ bool LinkedList::__remove_from_particular_index__(int index, int *removedValue)
 
     if (__check_null__(head))
     {
-        cerr << "List doesn't exists" << endl;
+        std::cerr << "List doesn't exists" << std::endl;
         return false;
     }
 
@@ -180,7 +174,7 @@ bool LinkedList::__remove_from_particular_index__(int index, int *removedValue)
     {
         if (__check_null__(current))
         {
-            cerr << "List out of range" << endl;
+            std::cerr << "List out of range" << std::endl;
             return false;
         }
         current = current->getNext();
@@ -189,7 +183,7 @@ bool LinkedList::__remove_from_particular_index__(int index, int *removedValue)
     temp = current->getNext();
     if (__check_null__(temp) || __check_null__(current))
     {
-        cerr << "List out of range" << endl;
+        std::cerr << "List out of range" << std::endl;
         return false;
     }
     current->setNext(temp->getNext());
@@ -204,7 +198,7 @@ bool LinkedList::__remove_from_end__(int *removedValue)
 {
     if (__check_null__(head))
     {
-        cerr << "List doesn't exists" << endl;
+        std::cerr << "List doesn't exists" << std::endl;
         return false;
     }
     int value;
@@ -230,7 +224,7 @@ bool LinkedList::__remove_from_end__(int *removedValue)
 }
 
 // OUTPUT
-ostream &operator<<(ostream &os, const LinkedList &list)
+std::ostream &operator<<(std::ostream &os, const LinkedList &list)
 {
     Node *current = list.head;
 
@@ -251,12 +245,12 @@ int main()
     LinkedList list;
 
     // random number generator engine
-    mt19937 rng(static_cast<unsigned>(time(nullptr)));
+    std::mt19937 rng(static_cast<unsigned>(time(nullptr)));
 
-    uniform_int_distribution<int> distribution(1,100);
+    std::uniform_int_distribution<int> distribution(1,100);
 
     for(int i = 0;  i<10; i++){
-        cout<<distribution(rng)<<"\t";
+        std::cout<<distribution(rng)<<"\t";
     }
 
 
