@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 *.exe
+**/.vscode/
 =======
 *.exe
 idea.txt
