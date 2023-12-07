@@ -1,5 +1,5 @@
 #include<stdio.h>
-#include "sortingalgo.h"
+#include "linkedList.h"
 
 void bubbleSort(Node *a, int size){
     int temp;

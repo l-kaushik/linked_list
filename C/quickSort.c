@@ -1,5 +1,5 @@
 #include<stdio.h>
-#include"sortingalgo.h"
+#include"linkedList.h"
 
 Node * partition(Node * first, Node * last){
     Node* pivot = first; 
