@@ -5,7 +5,7 @@
 
 int main()
 {
-    LinkedList list;
+    LinkedList<int> list;
     std::cout<<"output:-\t";
     // random number generator engine
     std::mt19937 rng(static_cast<unsigned>(time(nullptr)));
@@ -13,9 +13,10 @@ int main()
     std::uniform_int_distribution<int> distribution(1,100);
 
     for(int i = 0;  i<10; i++){
-        std::cout<<distribution(rng)<<"\t";
+        list.append(distribution(rng));
     }
 
+   std::cout<<list;
 
     return 0;
 }
